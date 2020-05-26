@@ -19,6 +19,7 @@
     "cp-file": "^9.0.0",
     "fast-glob": "^3.2.2",
     "gatsby": "^2.22.11",
+    "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-graphql-codegen": "^2.7.1",
     "gatsby-plugin-styled-components": "^3.3.2",
     "gatsby-plugin-typescript": "^2.4.3",
