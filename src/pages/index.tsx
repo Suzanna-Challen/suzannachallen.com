@@ -6,7 +6,7 @@ import styled, { createGlobalStyle } from "styled-components"
 
 const GlobalStyle = createGlobalStyle`
   body {
-    margin: 0;
+    margin: 8px;
     font-size: 16pt;
   }
 `
@@ -27,7 +27,10 @@ const SubTitle = styled.p`
   font-family: "Lato";
   font-size: 1.2rem;
 `
-const Photos = styled.div``
+const Photos = styled.div`
+  margin-left: -8px;
+  margin-right: -8px;
+`
 
 const Home: React.FC<PageProps & { data: IndexQuery }> = ({ data }) => {
   const photos = data.allPhoto.edges
