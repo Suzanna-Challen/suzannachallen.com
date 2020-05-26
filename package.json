@@ -3,7 +3,7 @@
   "scripts": {
     "build": "gatsby build",
     "clean": "gatsby clean",
-    "depcheck": "depcheck --ignore-dirs .cache,public --ignores=ts-node,gatsby-plugin-*",
+    "depcheck": "depcheck --ignore-dirs .cache,public --ignores=ts-node,gatsby-plugin-*,types",
     "develop": "gatsby develop",
     "ncu": "ncu",
     "serve": "gatsby serve",
