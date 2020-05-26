@@ -72,40 +72,54 @@ export async function findAlbums(): Promise<string[]> {
 }
 
 export async function loadPhoto(filename: string): Promise<Photo> {
-  const photoPath = path.relative(
-    path.join(appRoot.toString(), "photos"),
-    filename
-  )
-  const hash = await md5file(filename)
-  const [photoFilename, photoExt] = path.basename(photoPath).split(".")
-  const hashedPhotoPath = path.join(path.dirname(photoPath), `${ photoFilename }-${hash}.${photoExt}`)
-
-  const mdFilename = replaceExt(filename, ".md")
-  const { content, data } = grayMatter(
-    await fs.readFile(mdFilename, { encoding: "utf-8" })
-  )
-  const description =
-    content.trim().length === 0 ? undefined : sanitizeHTML(marked(content))
-  const metadata = PhotoMetadata.check(
-    JSON.parse((await exec(`convert ${filename} json:`)).stdout)[0].image
-  )
-  const aspectRatio = metadata.geometry.width / metadata.geometry.height
-  return Photo.check({
-    path: photoPath,
-    hashedPhotoPath,
-    hash,
-    ...data,
-    description,
-    aspectRatio,
-    metadata,
-  })
+  const contents = await fs.readFile(filename)
+  return Photo.check(JSON.parse(contents.toString()))
 }
 
 export async function findPhotos(directory: string): Promise<string[]> {
-  const photos = glob("**/*.(jpg|jpeg)", { cwd: directory }).then(photos =>
+  const photos = glob("**/*.json", { cwd: directory }).then(photos =>
     photos.map(photo => path.resolve(directory, photo))
   )
   return photos
+}
+
+export async function freezePhotos(): Promise<void> {
+  const cwd = path.resolve(appRoot.toString(), "photos")
+  const photos = await glob("**/*.(jpg|jpeg)", { cwd }).then(photos =>
+    photos.map(p => path.resolve(cwd, p))
+  )
+  for (const filename of photos) {
+    const photoPath = path.relative(cwd, filename)
+    const hash = await md5file(filename)
+    const [photoFilename, photoExt] = path.basename(photoPath).split(".")
+    const hashedPhotoPath = path.join(
+      path.dirname(photoPath),
+      `${photoFilename}-${hash}.${photoExt}`
+    )
+    const mdFilename = replaceExt(filename, ".md")
+    const { content, data } = grayMatter(
+      await fs.readFile(mdFilename, { encoding: "utf-8" })
+    )
+    const description =
+      content.trim().length === 0 ? undefined : sanitizeHTML(marked(content))
+    const metadata = PhotoMetadata.check(
+      JSON.parse((await exec(`convert ${filename} json:`)).stdout)[0].image
+    )
+    const aspectRatio = metadata.geometry.width / metadata.geometry.height
+    const photo = Photo.check({
+      path: photoPath,
+      hashedPhotoPath,
+      hash,
+      ...data,
+      description,
+      aspectRatio,
+      metadata,
+    })
+    await fs.writeFile(
+      replaceExt(filename, ".json"),
+      JSON.stringify(photo, null, 2)
+    )
+  }
 }
 
 export const sourceNodes: GatsbyNode["sourceNodes"] = async ({
@@ -113,6 +127,8 @@ export const sourceNodes: GatsbyNode["sourceNodes"] = async ({
   createContentDigest,
 }: SourceNodesArgs) => {
   const { createNode } = actions
+
+  await freezePhotos()
 
   const allAlbums = await findAlbums()
   const allPhotos: { [key: string]: Photo & { albums: string[] } } = {}
