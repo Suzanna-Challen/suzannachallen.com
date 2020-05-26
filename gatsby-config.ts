@@ -4,5 +4,10 @@ export const siteMetadata = {
 }
 export const plugins = [
   "gatsby-plugin-typescript",
-  "gatsby-plugin-graphql-codegen",
+  {
+    resolve: "gatsby-plugin-graphql-codegen",
+    options: {
+      documentPaths: ["./src/**/*.{ts,tsx}", "./.cache/fragments/*.js"],
+    },
+  },
 ]

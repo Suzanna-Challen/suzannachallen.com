@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
-import { IndexQuery } from "../../graphql-types"
+import { IndexQuery } from "types/graphql"
 import Imgix from "react-imgix"
 import styled from "styled-components"
 
@@ -16,10 +16,9 @@ const Home: React.FC<PageProps & { data: IndexQuery }> = ({ data }) => {
     <Middle>
       {photos.map(photo => (
         <Imgix
-          width="100%"
           key={photo.node.hash as string}
           src={`https://suzannachallen.imgix.net/${photo.node.hashedPhotoPath}`}
-          sizes="100vw"
+          sizes="min(100vw, 800px)"
         />
       ))}
     </Middle>
