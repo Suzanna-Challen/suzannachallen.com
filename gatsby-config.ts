@@ -10,4 +10,5 @@ export const plugins = [
       documentPaths: ["./src/**/*.{ts,tsx}", "./.cache/fragments/*.js"],
     },
   },
+  "gatsby-plugin-styled-components",
 ]

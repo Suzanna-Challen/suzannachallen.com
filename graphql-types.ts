@@ -304,9 +304,6 @@ export type AlbumFieldsEnum =
   | 'photos___metadata___tainted'
   | 'photos___metadata___filesize'
   | 'photos___metadata___numberPixels'
-  | 'photos___metadata___pixelsPerSecond'
-  | 'photos___metadata___userTime'
-  | 'photos___metadata___elapsedTime'
   | 'photos___metadata___version'
   | 'photos___albums'
   | 'photos___albums___id'
@@ -1338,9 +1335,6 @@ export type PhotoFieldsEnum =
   | 'metadata___tainted'
   | 'metadata___filesize'
   | 'metadata___numberPixels'
-  | 'metadata___pixelsPerSecond'
-  | 'metadata___userTime'
-  | 'metadata___elapsedTime'
   | 'metadata___version'
   | 'albums'
   | 'albums___id'
@@ -1435,9 +1429,6 @@ export type PhotoFieldsEnum =
   | 'albums___photos___metadata___tainted'
   | 'albums___photos___metadata___filesize'
   | 'albums___photos___metadata___numberPixels'
-  | 'albums___photos___metadata___pixelsPerSecond'
-  | 'albums___photos___metadata___userTime'
-  | 'albums___photos___metadata___elapsedTime'
   | 'albums___photos___metadata___version'
   | 'albums___photos___albums'
   | 'albums___photos___albums___id'
@@ -1517,9 +1508,6 @@ export type PhotoMetadata = {
   tainted?: Maybe<Scalars['Boolean']>;
   filesize?: Maybe<Scalars['String']>;
   numberPixels?: Maybe<Scalars['String']>;
-  pixelsPerSecond?: Maybe<Scalars['String']>;
-  userTime?: Maybe<Scalars['String']>;
-  elapsedTime?: Maybe<Scalars['String']>;
   version?: Maybe<Scalars['String']>;
 };
 
@@ -1710,9 +1698,6 @@ export type PhotoMetadataFilterInput = {
   tainted?: Maybe<BooleanQueryOperatorInput>;
   filesize?: Maybe<StringQueryOperatorInput>;
   numberPixels?: Maybe<StringQueryOperatorInput>;
-  pixelsPerSecond?: Maybe<StringQueryOperatorInput>;
-  userTime?: Maybe<StringQueryOperatorInput>;
-  elapsedTime?: Maybe<StringQueryOperatorInput>;
   version?: Maybe<StringQueryOperatorInput>;
 };
 
@@ -2256,6 +2241,7 @@ export type QuerySitePluginArgs = {
   version?: Maybe<StringQueryOperatorInput>;
   pluginOptions?: Maybe<SitePluginPluginOptionsFilterInput>;
   nodeAPIs?: Maybe<StringQueryOperatorInput>;
+  ssrAPIs?: Maybe<StringQueryOperatorInput>;
   pluginFilepath?: Maybe<StringQueryOperatorInput>;
   packageJson?: Maybe<SitePluginPackageJsonFilterInput>;
 };
@@ -2762,6 +2748,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___path'
   | 'pluginCreator___pluginOptions___pathCheck'
   | 'pluginCreator___nodeAPIs'
+  | 'pluginCreator___ssrAPIs'
   | 'pluginCreator___pluginFilepath'
   | 'pluginCreator___packageJson___name'
   | 'pluginCreator___packageJson___description'
@@ -2821,6 +2808,7 @@ export type SitePlugin = Node & {
   version?: Maybe<Scalars['String']>;
   pluginOptions?: Maybe<SitePluginPluginOptions>;
   nodeAPIs?: Maybe<Array<Maybe<Scalars['String']>>>;
+  ssrAPIs?: Maybe<Array<Maybe<Scalars['String']>>>;
   pluginFilepath?: Maybe<Scalars['String']>;
   packageJson?: Maybe<SitePluginPackageJson>;
 };
@@ -2946,6 +2934,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___path'
   | 'pluginOptions___pathCheck'
   | 'nodeAPIs'
+  | 'ssrAPIs'
   | 'pluginFilepath'
   | 'packageJson___name'
   | 'packageJson___description'
@@ -2973,6 +2962,7 @@ export type SitePluginFilterInput = {
   version?: Maybe<StringQueryOperatorInput>;
   pluginOptions?: Maybe<SitePluginPluginOptionsFilterInput>;
   nodeAPIs?: Maybe<StringQueryOperatorInput>;
+  ssrAPIs?: Maybe<StringQueryOperatorInput>;
   pluginFilepath?: Maybe<StringQueryOperatorInput>;
   packageJson?: Maybe<SitePluginPackageJsonFilterInput>;
 };

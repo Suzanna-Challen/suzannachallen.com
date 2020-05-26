@@ -14,11 +14,13 @@
   },
   "dependencies": {
     "app-root-path": "^3.0.0",
+    "babel-plugin-styled-components": "^1.10.7",
     "child-process-promise": "^2.2.1",
     "cp-file": "^9.0.0",
     "fast-glob": "^3.2.2",
     "gatsby": "^2.22.11",
     "gatsby-plugin-graphql-codegen": "^2.7.1",
+    "gatsby-plugin-styled-components": "^3.3.2",
     "gatsby-plugin-typescript": "^2.4.3",
     "gray-matter": "^4.0.2",
     "marked": "^1.1.0",

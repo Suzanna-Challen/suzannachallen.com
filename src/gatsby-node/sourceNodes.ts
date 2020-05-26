@@ -102,9 +102,14 @@ export async function freezePhotos(): Promise<void> {
     )
     const description =
       content.trim().length === 0 ? undefined : sanitizeHTML(marked(content))
-    const metadata = PhotoMetadata.check(
-      JSON.parse((await exec(`convert ${filename} json:`)).stdout)[0].image
-    )
+    const {
+      pixelsPerSecond,
+      elapsedTime,
+      userTime,
+      ...convertMetadata
+    } = JSON.parse((await exec(`convert ${filename} json:`)).stdout)[0].image
+    const metadata = PhotoMetadata.check(convertMetadata)
+
     const aspectRatio = metadata.geometry.width / metadata.geometry.height
     const photo = Photo.check({
       path: photoPath,

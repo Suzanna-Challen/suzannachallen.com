@@ -160,9 +160,6 @@
     "tainted": false,
     "filesize": "865172B",
     "numberPixels": "1000000",
-    "pixelsPerSecond": "46.6839MB",
-    "userTime": "0.020u",
-    "elapsedTime": "0:01.021",
     "version": "ImageMagick 6.9.11-13 Q16 x86_64 2020-05-22 https://imagemagick.org"
   }
 }
