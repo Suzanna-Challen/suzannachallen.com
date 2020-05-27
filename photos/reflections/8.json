@@ -192,9 +192,7 @@
         "City[1,90]": [
           "0x00000000: 254700                                        -%G"
         ],
-        "Unknown[2,0]": [
-          null
-        ],
+        "Unknown[2,0]": [null],
         "Keyword[2,25]": [
           "137 Dewitt Street",
           "2016",
@@ -204,21 +202,11 @@
           "miss josie",
           "reflections"
         ],
-        "Created Date[2,55]": [
-          "20160807"
-        ],
-        "Created Time[2,60]": [
-          "130643"
-        ],
-        "Unknown[2,62]": [
-          "20160807"
-        ],
-        "Unknown[2,63]": [
-          "130643"
-        ],
-        "Copyright String[2,116]": [
-          "Suzanna Challen"
-        ],
+        "Created Date[2,55]": ["20160807"],
+        "Created Time[2,60]": ["130643"],
+        "Unknown[2,62]": ["20160807"],
+        "Unknown[2,63]": ["130643"],
+        "Copyright String[2,116]": ["Suzanna Challen"],
         "length": 181
       },
       "xmp": {
