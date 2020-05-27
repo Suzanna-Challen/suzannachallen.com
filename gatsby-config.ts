@@ -7,7 +7,7 @@ export const plugins = [
   {
     resolve: "gatsby-plugin-graphql-codegen",
     options: {
-      documentPaths: ["./src/**/*.{ts,tsx}", "./.cache/fragments/*.js"],
+      documentPaths: ["./src/**/*.{ts,tsx}"],
     },
   },
   "gatsby-plugin-styled-components",
@@ -16,6 +16,15 @@ export const plugins = [
     options: {
       fonts: ["lato:400,700"],
       display: "swap",
+    },
+  },
+  {
+    resolve: "gatsby-plugin-manifest",
+    options: {
+      name: "Suzanna Challen: Artist, Photographer",
+      short_name: "Suzanna Challen",
+      start_url: "/",
+      icon: "src/images/icon.png",
     },
   },
 ]

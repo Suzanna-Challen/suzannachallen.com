@@ -139,9 +139,7 @@
         "length": 3144
       },
       "iptc": {
-        "City[1,90]": [
-          "0x00000000: 254700                                        -%G"
-        ],
+        "City[1,90]": ["0x00000000: 254700                                        -%G"],
         "Unknown[2,0]": [null],
         "Copyright String[2,116]": ["Suzanna Challen"],
         "length": 35

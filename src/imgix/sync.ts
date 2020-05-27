@@ -15,10 +15,7 @@ export const sync = async () => {
     const sourceName = path.resolve(source, photo)
     const hash = await md5file(sourceName)
     const [name, ext] = path.basename(photo).split(".")
-    const hashedFilename = path.join(
-      path.dirname(photo),
-      `${name}-${hash}.${ext}`
-    )
+    const hashedFilename = path.join(path.dirname(photo), `${name}-${hash}.${ext}`)
     const destinationName = path.resolve(destination, hashedFilename)
     await fs.mkdir(path.dirname(destinationName), { recursive: true })
     await cpFile(sourceName, destinationName)

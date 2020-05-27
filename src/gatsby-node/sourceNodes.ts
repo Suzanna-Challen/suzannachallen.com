@@ -10,6 +10,7 @@ import replaceExt from "replace-ext"
 import { exec } from "child-process-promise"
 import marked from "marked"
 import sanitizeHTML from "sanitize-html"
+import prettier from "prettier"
 
 export const PhotoMetadata = Record({
   format: String,
@@ -48,26 +49,18 @@ export const Album = Record({
 export type Album = Static<typeof Album>
 
 export async function loadAlbum(filename: string): Promise<Album> {
-  const { content, data: metadata } = grayMatter(
-    await fs.readFile(filename, { encoding: "utf-8" })
-  )
+  const { content, data: metadata } = grayMatter(await fs.readFile(filename, { encoding: "utf-8" }))
   const description = sanitizeHTML(marked(content))
   const photos = await Promise.all(
-    (await findPhotos(path.dirname(filename))).map(
-      async photo => await loadPhoto(photo)
-    )
+    (await findPhotos(path.dirname(filename))).map(async photo => await loadPhoto(photo))
   )
-  const albumPath = path.dirname(
-    path.relative(path.join(appRoot.toString(), "photos"), filename)
-  )
+  const albumPath = path.dirname(path.relative(path.join(appRoot.toString(), "photos"), filename))
   return Album.check({ ...metadata, path: albumPath, description, photos })
 }
 
 export async function findAlbums(): Promise<string[]> {
   const cwd = path.resolve(appRoot.toString(), "photos")
-  const albums = glob("**/album.md", { cwd }).then(albums =>
-    albums.map(album => path.resolve(cwd, album))
-  )
+  const albums = glob("**/album.md", { cwd }).then(albums => albums.map(album => path.resolve(cwd, album)))
   return albums
 }
 
@@ -85,29 +78,18 @@ export async function findPhotos(directory: string): Promise<string[]> {
 
 export async function freezePhotos(): Promise<void> {
   const cwd = path.resolve(appRoot.toString(), "photos")
-  const photos = await glob("**/*.(jpg|jpeg)", { cwd }).then(photos =>
-    photos.map(p => path.resolve(cwd, p))
-  )
+  const photos = await glob("**/*.(jpg|jpeg)", { cwd }).then(photos => photos.map(p => path.resolve(cwd, p)))
   for (const filename of photos) {
     const photoPath = path.relative(cwd, filename)
     const hash = await md5file(filename)
     const [photoFilename, photoExt] = path.basename(photoPath).split(".")
-    const hashedPhotoPath = path.join(
-      path.dirname(photoPath),
-      `${photoFilename}-${hash}.${photoExt}`
-    )
+    const hashedPhotoPath = path.join(path.dirname(photoPath), `${photoFilename}-${hash}.${photoExt}`)
     const mdFilename = replaceExt(filename, ".md")
-    const { content, data } = grayMatter(
-      await fs.readFile(mdFilename, { encoding: "utf-8" })
-    )
-    const description =
-      content.trim().length === 0 ? undefined : sanitizeHTML(marked(content))
-    const {
-      pixelsPerSecond,
-      elapsedTime,
-      userTime,
-      ...convertMetadata
-    } = JSON.parse((await exec(`convert ${filename} json:`)).stdout)[0].image
+    const { content, data } = grayMatter(await fs.readFile(mdFilename, { encoding: "utf-8" }))
+    const description = content.trim().length === 0 ? undefined : sanitizeHTML(marked(content))
+    const { pixelsPerSecond, elapsedTime, userTime, ...convertMetadata } = JSON.parse(
+      (await exec(`convert ${filename} json:`)).stdout
+    )[0].image
     const metadata = PhotoMetadata.check(convertMetadata)
 
     const aspectRatio = metadata.geometry.width / metadata.geometry.height
@@ -122,15 +104,12 @@ export async function freezePhotos(): Promise<void> {
     })
     await fs.writeFile(
       replaceExt(filename, ".json"),
-      JSON.stringify(photo, null, 2)
+      prettier.format(JSON.stringify(photo, null, 2), { parser: "json", printWidth: 120 })
     )
   }
 }
 
-export const sourceNodes: GatsbyNode["sourceNodes"] = async ({
-  actions,
-  createContentDigest,
-}: SourceNodesArgs) => {
+export const sourceNodes: GatsbyNode["sourceNodes"] = async ({ actions, createContentDigest }: SourceNodesArgs) => {
   const { createNode } = actions
 
   await freezePhotos()
