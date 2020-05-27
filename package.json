@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "build": "gatsby build",
+    "build": "gatsby build && prettier --write graphql-types.ts",
     "clean": "gatsby clean",
     "depcheck": "depcheck --ignore-dirs .cache,public --ignores=ts-node,gatsby-plugin-*,types",
     "deploy": "npm run build && cp deploy/* public && gh-pages -d public -b master -r git@github.com:Suzanna-Challen/Suzanna-Challen.github.io.git",
