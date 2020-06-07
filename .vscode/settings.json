@@ -3,7 +3,10 @@
     "**/.cache": true,
     "**/dist": true,
     "**/node_modules": true,
-    "**/package-lock.json": true
+    "**/package-lock.json": true,
+    "public": true,
+    ".dropbox": true,
+    "graphql-types.ts": true
   },
   "eslint.validate": ["typescriptreact"],
   "editor.parameterHints": false,

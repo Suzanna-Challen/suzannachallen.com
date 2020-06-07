@@ -87,7 +87,7 @@ export async function freezePhotos(): Promise<void> {
     const mdFilename = replaceExt(filename, ".md")
     const { content, data } = grayMatter(await fs.readFile(mdFilename, { encoding: "utf-8" }))
     const description = content.trim().length === 0 ? undefined : sanitizeHTML(marked(content))
-    const { pixelsPerSecond, elapsedTime, userTime, ...convertMetadata } = JSON.parse(
+    const { pixelsPerSecond, elapsedTime, userTime, version, ...convertMetadata } = JSON.parse(
       (await exec(`convert ${filename} json:`)).stdout
     )[0].image
     const metadata = PhotoMetadata.check(convertMetadata)

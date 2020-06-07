@@ -153,7 +153,6 @@
     },
     "tainted": false,
     "filesize": "584380B",
-    "numberPixels": "1000000",
-    "version": "ImageMagick 6.9.11-13 Q16 x86_64 2020-05-22 https://imagemagick.org"
+    "numberPixels": "1000000"
   }
 }

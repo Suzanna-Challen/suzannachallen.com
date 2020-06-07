@@ -69,3 +69,4 @@ yarn-error.log
 .yarn-integrity
 
 .dropbox
+/graphql-types.ts
