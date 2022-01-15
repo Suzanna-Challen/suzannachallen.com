@@ -26,7 +26,7 @@
     "gatsby-plugin-styled-components": "^3.3.3",
     "gatsby-plugin-typescript": "^2.4.4",
     "gray-matter": "^4.0.2",
-    "marked": "^1.1.0",
+    "marked": "^4.0.10",
     "md5-file": "^5.0.0",
     "prettier": "2.0.5",
     "react": "^16.13.1",
